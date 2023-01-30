@@ -27,15 +27,19 @@ export const countQuarters = (amount, counter) => {
 export const coinCount = (amount, quarters, dimes, nickels, pennies) => {
     if (isNaN(amount)) {
         return;
-    } else if (amount >= .25) {
+    } else if (Math.round(amount * 100) / 100 >= .25) {
         amount -= .25;
         quarters++;
         return coinCount(amount, quarters, dimes, nickels, pennies);
-    } else if (amount >= .10) {
+    } else if (Math.round(amount * 100) / 100 >= .10) {
         amount -= .10;
         dimes++;
         return coinCount(amount, quarters, dimes, nickels, pennies);
+    } else if (Math.round(amount * 100) / 100 >= .05) {
+        amount -= .05;
+        nickels++;
+        return coinCount(amount, quarters, dimes, nickels, pennies);
     } else {
-        return `quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`;
+        return `quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${Math.round(amount * 100)}`;
     }
 }
