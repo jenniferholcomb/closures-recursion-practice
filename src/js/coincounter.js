@@ -24,3 +24,17 @@ export const countQuarters = (amount, counter) => {
 // console.log(countQuarters(1.24, 0));
 
 
+export const coinCount = (amount, quarters, dimes, nickels, pennies) => {
+    if (isNaN(amount)) {
+        return;
+    } else if (amount >= .25) {
+        amount -= .25;
+        quarters++;
+        return coinCount(amount, quarters, dimes, nickels, pennies);
+    } else {
+        return `quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`;
+    }
+    // } else if (amount >= .10) {
+    //     amount -= .10;
+    // }
+}
