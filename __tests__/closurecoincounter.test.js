@@ -20,6 +20,6 @@ test('returns number of nickels', () => {
 
 test('returns number of pennies', () => {
   const amount = 4.25;
-  const penny = 0.01;
-  expect(coinCount(penny)(amount)).toEqual(425);
+  const pennyCount = coinCount(0.01); 
+  expect(pennyCount((amount))).toEqual(425);
 });

@@ -1,25 +1,29 @@
-const coinCount = (amount, quarters, dimes, nickels, pennies) => {
-  if (isNaN(amount)) {
-    return;
-  } else if (Math.round(amount * 100) / 100 >= .25) {
-    amount -= .25;
-    quarters++;
-    console.log(`amount: ${amount}, quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`);
-    return coinCount(amount, quarters, dimes, nickels, pennies);
-  } else if (Math.round(amount * 100) / 100 >= .10) {
-    amount -= .10;
-    dimes++;
-    console.log(`amount: ${amount}, quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`);
-    return coinCount(amount, quarters, dimes, nickels, pennies);
-  } else if (Math.round(amount * 100) / 100 >= .05) {
-    amount -= .05;
-    nickels++;
-    console.log(`amount: ${amount}, quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`);
-    return coinCount(amount, quarters, dimes, nickels, pennies);
-  } else {
-    console.log(`quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`);
-    return `amount: ${amount}, quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`;
-  }
-}
+// const romanNumeralConverter = (char, charValue) => {
+//   return (growingString, total) => {             
+//     const charNumber = Math.floor(total/charValue) 
+//     const newString = growingString.concat(char.repeat(charNumber));   
+//     return [total%charValue, newString];                 
+//     }
+//   }
 
-coinCount(4.35, 0, 0, 0, 0);
+// const mConverter = romanNumeralConverter("M", 1000)
+// console.log(mConverter("", 3001));
+
+const romanNumeralConverter = (total) => {
+  const charBank = [["M", 1000], ["CM", 900], ["D", 500], ["CD", 400], ["C", 100], ["XC",90], ["L", 50], ["XL", 40], ["X", 10], ["IX", 9], ["V", 5], ["IV", 4], ["I", 1]];
+  const operateOnPairs = (counter, runningTotal, runningString) => {
+    if (runningTotal === 0) {
+      return runningString; 
+    }
+    else if (charBank[counter][1] <= runningTotal) {
+      runningString += charBank[counter][0];
+      runningTotal -= charBank[counter][1];
+      return operateOnPairs(counter, runningTotal, runningString);
+    } else {
+      return operateOnPairs (counter+1, runningTotal, runningString)
+    }
+  }
+  return operateOnPairs(0, total, "");
+}
+// CMXII
+console.log(romanNumeralConverter(12156));
