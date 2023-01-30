@@ -31,10 +31,11 @@ export const coinCount = (amount, quarters, dimes, nickels, pennies) => {
         amount -= .25;
         quarters++;
         return coinCount(amount, quarters, dimes, nickels, pennies);
+    } else if (amount >= .10) {
+        amount -= .10;
+        dimes++;
+        return coinCount(amount, quarters, dimes, nickels, pennies);
     } else {
         return `quarters: ${quarters}, dimes: ${dimes}, nickels: ${nickels}, pennies: ${pennies}`;
     }
-    // } else if (amount >= .10) {
-    //     amount -= .10;
-    // }
 }
